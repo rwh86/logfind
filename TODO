@@ -4,9 +4,11 @@
 * Set up Python Environment: Python 2
 * Create LPTHW skeleton
 * read command line arguments into internal data structure
-- read config file into internal data structure
+* read ~/.logfind config file into internal data structure
 - open each log file, preferably in chunks or as a stream
 - search for match
+
+- convert command line arg reading to argparse
 
 - read about how grep searches efficiently
     - https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html
