@@ -9,13 +9,18 @@ import glob
 
 def main():
     sys.argv.pop(0)
-
     conffile = os.environ['HOME'] + '/.logfind'
+    files = conf_to_files(conffile)
+
+# convert regexps in the config file to a list of log files to process
+# ignore lines in the config file beginning with '#'
+def conf_to_files(conffile):
     conf = open(conffile, 'r')
 
     regexps = []
     for line in conf:
-        regexps.append(line.rstrip())
+        if not line.startswith('#'):
+            regexps.append(line.rstrip())
     #print regexps
 
     strings = []
@@ -23,16 +28,13 @@ def main():
         strings.append(arg)
     #print strings
 
-    files = regexps_to_files(regexps[:])
-
-# convert regexps in the config file to a list of log files to process
-def regexps_to_files(regexps):
     files = []
 
     for regexp in regexps:
         files += glob.glob(regexp)
+    #print files
 
-    print files
+    return files
 
 main()
 
