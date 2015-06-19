@@ -15,11 +15,17 @@ def main():
     sys.argv.pop(0)
     conffile = os.environ['HOME'] + '/.logfind'
     files = conf_to_files(conffile)
-    matched_logs = search(files, sys.argv, 'and')
-    print matched_logs
+
+    if sys.argv[0] == '-o':
+        matched_logs = search(files, sys.argv, 'or')
+        print matched_logs
+    else:
+        matched_logs = search(files, sys.argv, 'and')
+        print matched_logs
 
 def usage():
-    print "usage:",sys.argv[0],"search_string"
+    print "logfind: find strings in logfiles\n"
+    print "usage:",sys.argv[0],"[-o] string ...\n\n\t -o use OR semantics\n"
 
 # convert regexps in the config file to a list of log files to process
 # ignore lines in the config file beginning with '#'
@@ -56,11 +62,13 @@ def search(files, words, comparison):
         f = open(file)
         s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
         for word in words:
-            matched_and = matched_and & (s.find(word) != -1)
-        if matched_and:
+            matched_and = matched_and and (s.find(word) != -1)
+            matched_or = matched_or or (s.find(word) != -1)
+        if comparison == 'and' and matched_and:
+            matched_logs.append(file)
+        elif comparison == 'or' and matched_or:
             matched_logs.append(file)
     return matched_logs
-
 
 main()
 
