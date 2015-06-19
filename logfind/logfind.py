@@ -17,11 +17,14 @@ def main():
     files = conf_to_files(conffile)
 
     if sys.argv[0] == '-o':
+        sys.argv.pop(0)
         matched_logs = search(files, sys.argv, 'or')
-        print matched_logs
+        for log in matched_logs:
+            print log
     else:
         matched_logs = search(files, sys.argv, 'and')
-        print matched_logs
+        for log in matched_logs:
+            print log
 
 def usage():
     print "logfind: find strings in logfiles\n"
@@ -51,8 +54,9 @@ def conf_to_files(conffile):
 
     return files
 
-# takes a list of files and a list of words to search for and returns a list of
-# files that contains all of those words
+# takes a list of files, a list of words to search for and a comparison type
+# ('and' or 'or') and returns a list of files that contains all of those words
+# ('and' mode) or at least one of the words ('or' mode)
 def search(files, words, comparison):
     matched_logs = []
 
