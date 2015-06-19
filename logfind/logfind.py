@@ -63,15 +63,16 @@ def search(files, words, comparison):
     for file in files:
         matched_and = True
         matched_or = False
-        f = open(file)
-        s = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
-        for word in words:
-            matched_and = matched_and and (s.find(word) != -1)
-            matched_or = matched_or or (s.find(word) != -1)
-        if comparison == 'and' and matched_and:
-            matched_logs.append(file)
-        elif comparison == 'or' and matched_or:
-            matched_logs.append(file)
+        with open(file) as f:
+            with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as s:
+                for word in words:
+                    matched_and = matched_and and (s.find(word) != -1)
+                    matched_or = matched_or or (s.find(word) != -1)
+                if comparison == 'and' and matched_and:
+                    matched_logs.append(file)
+                elif comparison == 'or' and matched_or:
+                    matched_logs.append(file)
+
     return matched_logs
 
 main()
