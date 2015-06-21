@@ -1,5 +1,5 @@
 from nose.tools import *
-import logfind
+from logfind.logfind import *
 import os
 
 #def setup():
@@ -22,7 +22,7 @@ class TestClass:
         os.remove('logfind.config.txt')
       
     def test_conf_to_files(self):
-        files = logfind.conf_to_files('logfind.config.txt')
+        files = conf_to_files('logfind.config.txt')
         assert files[0] == "./tests/logs1/test1"
 
 #def setup():
