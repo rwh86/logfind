@@ -10,7 +10,7 @@
 - allow program installation
 - allow regular expressions in words to find
 
-- create automated tests
+* create automated tests
 - create README.md
 
 - convert command line arg reading to argparse
