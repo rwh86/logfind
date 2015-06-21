@@ -19,4 +19,5 @@ the specified strings, but you can pass the -o option to change this to OR.
 
 ## testing
 
-To run unit tests, change to the root directory of the source repository and run `nosetests`.
+To run unit tests, change to the root directory of the source repository and
+run `nosetests`.
