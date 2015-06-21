@@ -4,7 +4,7 @@ except ImportError:
     from distutils.core import setup
 
 config = {
-    'description': 'My Project',
+    'description': 'Logfind: search log files for strings',
     'author': 'Robert Hutton',
     'url': 'https://github.com/rwh86/logfind',
     'download_url': 'https://github.com/rwh86/logfind',
