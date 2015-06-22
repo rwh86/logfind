@@ -13,7 +13,7 @@
 * create automated tests
 * create README.md
 
-- convert command line arg reading to argparse
+* convert command line arg reading to argparse
 
 - read about how grep searches efficiently
     - https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html

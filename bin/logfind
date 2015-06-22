@@ -6,17 +6,23 @@ Logfind: implementation of http://projectsthehardway.com/2015/06/16/project-1-lo
 import os
 import sys
 import lf.utils as lf
+import argparse
 
 def main():
-    if len(sys.argv) < 2:
-        usage()
-        return
-    sys.argv.pop(0)
+
+    parser = argparse.ArgumentParser(description='Find string(s) in logfiles. Logfiles to search are specified in ~/.logfind.')
+    parser.add_argument('strings', metavar='string', type=str, nargs='+',
+                           help='string to find in the log files')
+    parser.add_argument('-o', action='store_true', help='use OR semantics (default: use AND)')
+    #parser.add_argument('-e', dest='store_true', help='strings are perl regular expressions')
+    args = parser.parse_args()
+
+    print args.strings
+
     conffile = os.environ['HOME'] + '/.logfind'
     files = lf.conf_to_files(conffile)
 
-    if sys.argv[0] == '-o':
-        sys.argv.pop(0)
+    if args.o:
         matched_logs = lf.search(files, sys.argv, 'or')
         for log in matched_logs:
             print log
