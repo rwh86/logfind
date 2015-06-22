@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+"""
+Logfind: implementation of http://projectsthehardway.com/2015/06/16/project-1-logfind-2/
+"""
+import os
+import sys
+import lf.utils as lf
+
+def main():
+    if len(sys.argv) < 2:
+        usage()
+        return
+    sys.argv.pop(0)
+    conffile = os.environ['HOME'] + '/.logfind'
+    files = lf.conf_to_files(conffile)
+
+    if sys.argv[0] == '-o':
+        sys.argv.pop(0)
+        matched_logs = lf.search(files, sys.argv, 'or')
+        for log in matched_logs:
+            print log
+    else:
+        matched_logs = lf.search(files, sys.argv, 'and')
+        for log in matched_logs:
+            print log
+
+def usage():
+    print "logfind: find strings in logfiles\n"
+    print "usage:",sys.argv[0],"[-o] string ...\n\n\t -o use OR semantics\n"
+
+# run main if invoked as a script
+if __name__ == "__main__":
+    main()
+
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4

@@ -11,8 +11,8 @@ config = {
     'author_email': 'rwh@helms-deep.net',
     'version': '0.1',
     'install_requires': ['nose'],
-    'packages': ['logfind'],
-    'scripts': [],
+    'packages': ['lf'],
+    'scripts': ['bin/logfind'],
     'name': 'logfind'
 }
 

@@ -1,34 +1,6 @@
-#!/usr/bin/env python
-
-"""
-Logfind: implementation of http://projectsthehardway.com/2015/06/16/project-1-logfind-2/
-"""
-import os
 import sys
 import glob
 import mmap
-
-def main():
-    if len(sys.argv) < 2:
-        usage()
-        return
-    sys.argv.pop(0)
-    conffile = os.environ['HOME'] + '/.logfind'
-    files = conf_to_files(conffile)
-
-    if sys.argv[0] == '-o':
-        sys.argv.pop(0)
-        matched_logs = search(files, sys.argv, 'or')
-        for log in matched_logs:
-            print log
-    else:
-        matched_logs = search(files, sys.argv, 'and')
-        for log in matched_logs:
-            print log
-
-def usage():
-    print "logfind: find strings in logfiles\n"
-    print "usage:",sys.argv[0],"[-o] string ...\n\n\t -o use OR semantics\n"
 
 # convert regexps in the config file to a list of log files to process
 # ignore lines in the config file beginning with '#'
@@ -76,7 +48,5 @@ def search(files, words, comparison):
 
     return matched_logs
 
-if __name__ == "__main__":
-    main()
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
