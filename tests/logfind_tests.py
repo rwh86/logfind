@@ -1,5 +1,5 @@
 from nose.tools import *
-from logfind.logfind import *
+from lf.utils import *
 import os
 
 #def setup():
