@@ -41,7 +41,7 @@ def search(files, words, or_mode, regexp_mode):
             mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
             for word in words:
                 if regexp_mode:
-                    matched = re.search(word, mm)
+                    matched = re.search(word, mm, re.MULTILINE)
                 else:
                     matched = (mm.find(word) != -1)
                 matched_and = matched_and and matched
