@@ -10,11 +10,11 @@ import argparse
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Find string(s) in logfiles. Logfiles to search are specified in ~/.logfind.')
+    parser = argparse.ArgumentParser(description='Find string(s) in logfiles. Logfiles to search are specified as filename globs in ~/.logfind.')
     parser.add_argument('strings', metavar='string', type=str, nargs='+',
                            help='string to find in the log files')
     parser.add_argument('-o', action='store_true', help='use OR semantics (default: use AND)')
-    parser.add_argument('-e', action='store_true', help='strings are perl regular expressions')
+    parser.add_argument('-e', action='store_true', help='strings are treated as Perl regular expressions')
     args = parser.parse_args()
 
     conffile = os.environ['HOME'] + '/.logfind'
