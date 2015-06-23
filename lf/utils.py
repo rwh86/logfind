@@ -6,6 +6,7 @@ import re
 # convert regexps in the config file to a list of log files to process
 # ignore lines in the config file beginning with '#'
 def conf_to_files(conffile):
+    """Convert filename globs in the conffile (one per line) to a list of log files to process. Ignore lines in the config file beginning with '#'."""
     conf = open(conffile, 'r')
 
     regexps = []
@@ -27,11 +28,17 @@ def conf_to_files(conffile):
 
     return files
 
-# takes a list of files, a list of words to search for, a comparison type
-# ('and' or 'or'), and regexp_type which specifies whether the words are normal
-# or regular expressions and returns a list of files that contains all of those
-# words ('and' mode) or at least one of the words ('or' mode)
-def search(files, words, or_mode, regexp_mode):
+def search(files, words, or_mode=False, regexp_mode=False):
+    """ Search files for words or regexps using 'and' or 'or' semantics.
+
+    Keyword arguments:
+    files -- list of files to search
+    words -- list of words (or regexps) to search for
+    or_mode -- search for all words when False (AND) (default) or at least one when True (OR)
+    regexp_mode -- when True, the words are treated as regexps (default is False)
+
+    Returns a list of files that match
+    """
     matched_logs = []
 
     for file in files:

@@ -24,10 +24,6 @@ def main():
     for log in matched_logs:
         print log
 
-def usage():
-    print "logfind: find strings in logfiles\n"
-    print "usage:",sys.argv[0],"[-o] string ...\n\n\t -o use OR semantics\n"
-
 # run main if invoked as a script
 if __name__ == "__main__":
     main()
