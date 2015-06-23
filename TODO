@@ -8,7 +8,7 @@
 * open each log file, preferably in chunks or as a stream
 * search for match
 * allow program installation
-- allow regular expressions in words to find
+* allow regular expressions in words to find
 
 * create automated tests
 * create README.md
