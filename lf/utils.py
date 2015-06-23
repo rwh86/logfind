@@ -29,7 +29,7 @@ def conf_to_files(conffile):
 # takes a list of files, a list of words to search for and a comparison type
 # ('and' or 'or') and returns a list of files that contains all of those words
 # ('and' mode) or at least one of the words ('or' mode)
-def search(files, words, comparison):
+def search(files, words, or_mode, regexp_mode):
     matched_logs = []
 
     for file in files:
@@ -38,11 +38,12 @@ def search(files, words, comparison):
         with open(file) as f:
             mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
             for word in words:
-                matched_and = matched_and and (mm.find(word) != -1)
-                matched_or = matched_or or (mm.find(word) != -1)
-            if comparison == 'and' and matched_and:
+                matched = (mm.find(word) != -1)
+                matched_and = matched_and and matched
+                matched_or = matched_or or matched
+            if (not or_mode) and matched_and:
                 matched_logs.append(file)
-            elif comparison == 'or' and matched_or:
+            elif or_mode and matched_or:
                 matched_logs.append(file)
             mm.close()
 

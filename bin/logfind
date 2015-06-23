@@ -14,22 +14,15 @@ def main():
     parser.add_argument('strings', metavar='string', type=str, nargs='+',
                            help='string to find in the log files')
     parser.add_argument('-o', action='store_true', help='use OR semantics (default: use AND)')
-    #parser.add_argument('-e', dest='store_true', help='strings are perl regular expressions')
+    parser.add_argument('-e', action='store_true', help='strings are perl regular expressions')
     args = parser.parse_args()
-
-    print args.strings
 
     conffile = os.environ['HOME'] + '/.logfind'
     files = lf.conf_to_files(conffile)
 
-    if args.o:
-        matched_logs = lf.search(files, sys.argv, 'or')
-        for log in matched_logs:
-            print log
-    else:
-        matched_logs = lf.search(files, sys.argv, 'and')
-        for log in matched_logs:
-            print log
+    matched_logs = lf.search(files, args.strings, args.o, args.e)
+    for log in matched_logs:
+        print log
 
 def usage():
     print "logfind: find strings in logfiles\n"
